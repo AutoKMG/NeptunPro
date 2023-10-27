@@ -1,7 +1,7 @@
 package hu.unideb.inf.NeptunPro.auth;
 
-import hu.unideb.inf.NeptunPro.model.Role;
-import hu.unideb.inf.NeptunPro.model.User;
+import hu.unideb.inf.NeptunPro.model.user.Role;
+import hu.unideb.inf.NeptunPro.model.user.User;
 import hu.unideb.inf.NeptunPro.repository.UserRepository;
 import hu.unideb.inf.NeptunPro.security.JwtService;
 import lombok.RequiredArgsConstructor;

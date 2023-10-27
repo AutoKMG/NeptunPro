@@ -1,4 +1,4 @@
-package hu.unideb.inf.NeptunPro.model;
+package hu.unideb.inf.NeptunPro.model.user;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -23,7 +23,7 @@ import java.util.List;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     @NotNull(message = "First Name is mandatory")

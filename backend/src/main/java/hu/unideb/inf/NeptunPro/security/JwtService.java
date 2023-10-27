@@ -1,6 +1,6 @@
 package hu.unideb.inf.NeptunPro.security;
 
-import hu.unideb.inf.NeptunPro.auth.TokenSecretService;
+import hu.unideb.inf.NeptunPro.util.TokenSecretService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

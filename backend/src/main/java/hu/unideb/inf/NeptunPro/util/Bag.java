@@ -1,4 +1,4 @@
-package hu.unideb.inf.NeptunPro.model;
+package hu.unideb.inf.NeptunPro.util;
 
 import jakarta.persistence.*;
 import lombok.*;

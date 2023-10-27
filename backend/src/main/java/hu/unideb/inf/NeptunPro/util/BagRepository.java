@@ -1,7 +1,5 @@
-package hu.unideb.inf.NeptunPro.repository;
+package hu.unideb.inf.NeptunPro.util;
 
-import hu.unideb.inf.NeptunPro.model.Bag;
-import hu.unideb.inf.NeptunPro.model.BagKey;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BagRepository extends JpaRepository<Bag, Long> {
