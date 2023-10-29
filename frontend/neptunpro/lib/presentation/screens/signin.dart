@@ -1,10 +1,11 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:neptunpro/data/constants/colors.dart';
 import 'package:neptunpro/logic/handlers/signin/handler.dart';
 import 'package:neptunpro/logic/helpers/local/cache_helper.dart';
-import 'package:neptunpro/presentation/screens/landing_page.dart';
-import 'package:neptunpro/presentation/widgets/default_text_form_field.dart';
+import 'package:neptunpro/presentation/screens/landing_page/layout.dart';
+import 'package:neptunpro/presentation/reusable_widgets/default_text_form_field.dart';
 
 class SigninScreen extends StatelessWidget {
   const SigninScreen({super.key});
@@ -61,7 +62,7 @@ class SigninScreen extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 64,
                                   fontFamily: "Roboto",
-                                  color: Color.fromRGBO(8, 31, 74, 1)),
+                                  color: primaryColor),
                             ),
                             const Expanded(
                               child: SizedBox(
@@ -131,8 +132,7 @@ class SigninScreen extends StatelessWidget {
                                               (state) => Colors.white),
                                       backgroundColor:
                                           MaterialStateProperty.resolveWith(
-                                              (state) => const Color.fromRGBO(
-                                                  8, 31, 74, 1)),
+                                              (state) => primaryColor),
                                     ),
                                     child: const Text(
                                       "Sign In",
