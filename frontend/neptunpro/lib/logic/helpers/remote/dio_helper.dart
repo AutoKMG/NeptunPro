@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:neptunpro/data/models/authentication_request.dart';
+import 'package:neptunpro/logic/helpers/local/cache_helper.dart';
 
 class DioHelper {
   static Dio? dio;
@@ -26,5 +27,14 @@ class DioHelper {
       "auth/authentication",
       data: credentials,
     );
+  }
+
+  static Future<Response> get(
+      {required String url, required Map<String, dynamic> query}) async {
+    dio!.options.headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${CacheHelper.getData(key: 'token')}',
+    };
+    return await dio!.get(url, queryParameters: query);
   }
 }
