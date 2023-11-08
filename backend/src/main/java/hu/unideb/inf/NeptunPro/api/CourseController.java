@@ -47,7 +47,6 @@ public class CourseController {
                             received.getName(),
                             received.getType().toString())
             );
-            return new ResponseEntity<>(json, HttpStatus.BAD_REQUEST);
         }
 
         if(!userRepository.existsById(received.getTeacherId())) {
