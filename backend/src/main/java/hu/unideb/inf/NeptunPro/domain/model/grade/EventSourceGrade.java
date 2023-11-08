@@ -1,4 +1,4 @@
-package hu.unideb.inf.NeptunPro.model.student;
+package hu.unideb.inf.NeptunPro.domain.model.grade;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,13 +14,13 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class EventSourceStudent {
+public class EventSourceGrade {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    private Long studentId;
+    private Long gradeId;
 
     private String source;
 

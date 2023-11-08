@@ -1,6 +1,6 @@
 package hu.unideb.inf.NeptunPro.security;
 
-import hu.unideb.inf.NeptunPro.repository.UserRepository;
+import hu.unideb.inf.NeptunPro.domain.repo.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

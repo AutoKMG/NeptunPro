@@ -1,7 +1,7 @@
-package hu.unideb.inf.NeptunPro.model.student;
+package hu.unideb.inf.NeptunPro.domain.model.student;
 
-import hu.unideb.inf.NeptunPro.model.Program;
-import hu.unideb.inf.NeptunPro.model.user.User;
+import hu.unideb.inf.NeptunPro.domain.model.Program;
+import hu.unideb.inf.NeptunPro.domain.model.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +10,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 @Entity
 @Data

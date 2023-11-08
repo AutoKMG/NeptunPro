@@ -1,4 +1,4 @@
-package hu.unideb.inf.NeptunPro.model;
+package hu.unideb.inf.NeptunPro.domain.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

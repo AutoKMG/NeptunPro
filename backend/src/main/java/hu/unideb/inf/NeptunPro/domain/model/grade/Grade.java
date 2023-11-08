@@ -1,9 +1,9 @@
-package hu.unideb.inf.NeptunPro.model.grade;
+package hu.unideb.inf.NeptunPro.domain.model.grade;
 
 
-import hu.unideb.inf.NeptunPro.model.student.Student;
-import hu.unideb.inf.NeptunPro.model.course.Course;
-import hu.unideb.inf.NeptunPro.model.user.User;
+import hu.unideb.inf.NeptunPro.domain.model.student.Student;
+import hu.unideb.inf.NeptunPro.domain.model.course.Course;
+import hu.unideb.inf.NeptunPro.domain.model.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
