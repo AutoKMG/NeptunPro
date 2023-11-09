@@ -29,7 +29,7 @@ public class Grade {
 
     private Double grade;
 
-    private Integer version;
+    private Short version;
 
     private Long createdBy;
     private Long modifiedBy;

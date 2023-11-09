@@ -81,7 +81,7 @@ public class CourseController {
                 courseFromDb.setTeacherId(received.getTeacherId());
 
                 var updated = courseService.save(courseFromDb);
-                return new ResponseEntity<>(updated, HttpStatus.OK);
+                return ResponseEntity.ok(updated);
             } catch (Exception e) {
                 json.put("error", e.getMessage());
             }
@@ -96,7 +96,7 @@ public class CourseController {
         var json = mapper.createObjectNode();
         try {
             courseRepository.deleteById(id);
-            return new ResponseEntity<>(json, HttpStatus.NO_CONTENT);
+            return ResponseEntity.noContent().build();
         } catch (Exception e) {
             json.put("error", e.getMessage());
             return new ResponseEntity<>(json, HttpStatus.BAD_REQUEST);

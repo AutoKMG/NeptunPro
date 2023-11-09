@@ -16,6 +16,7 @@
 	<properties>
 		<java.version>17</java.version>
 		<jwt.version>0.11.5</jwt.version>
+		<tinylog.version>2.6.2</tinylog.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -83,14 +84,21 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.tinylog</groupId>
+			<artifactId>tinylog-api</artifactId>
+			<version>${tinylog.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.tinylog</groupId>
+			<artifactId>tinylog-impl</artifactId>
+			<version>${tinylog.version}</version>
 		</dependency>
 	</dependencies>
 

@@ -29,7 +29,7 @@ public class Student {
 
     private Double gpa;
 
-    private Integer version;
+    private Short version;
 
     private Long createdBy;
     private Long modifiedBy;

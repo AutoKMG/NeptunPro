@@ -1,5 +1,8 @@
-package hu.unideb.inf.NeptunPro.util;
+package hu.unideb.inf.NeptunPro.service;
 
+import hu.unideb.inf.NeptunPro.domain.model._sys.Bag;
+import hu.unideb.inf.NeptunPro.domain.model._sys.BagKey;
+import hu.unideb.inf.NeptunPro.domain.repo.BagRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

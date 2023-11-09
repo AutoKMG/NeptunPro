@@ -75,7 +75,7 @@ public class ProgramController {
         var json = mapper.createObjectNode();
         try {
             programRepository.deleteById(id);
-            return new ResponseEntity<>(json, HttpStatus.NO_CONTENT);
+            return ResponseEntity.noContent().build();
         } catch (Exception e) {
             json.put("error", e.getMessage());
             return new ResponseEntity<>(json, HttpStatus.BAD_REQUEST);
