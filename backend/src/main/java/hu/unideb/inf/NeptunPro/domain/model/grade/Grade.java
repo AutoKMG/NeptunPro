@@ -5,6 +5,7 @@ import hu.unideb.inf.NeptunPro.domain.model.student.Student;
 import hu.unideb.inf.NeptunPro.domain.model.course.Course;
 import hu.unideb.inf.NeptunPro.domain.model.user.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,13 +21,16 @@ import java.sql.Timestamp;
 public class Grade {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Please provide a student")
     private Long studentId;
 
+    @NotBlank(message = "Please provide a course")
     private Long courseId;
 
+    @NotBlank(message = "Please provide a grade")
     private Double grade;
 
     private Short version;

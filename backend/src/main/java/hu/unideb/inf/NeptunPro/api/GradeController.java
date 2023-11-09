@@ -30,21 +30,18 @@ public class GradeController {
     private final GradeService gradeService;
 
     @GetMapping("")
-    public ResponseEntity<?> getAllGrades(Principal principal) {
-        System.out.println(principal.getName());
+    public ResponseEntity<?> getAllGrades() {
         var lst = gradeRepository.findAll();
         return ResponseEntity.ok(lst);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getGrade(@PathVariable final long id) {
+    public ResponseEntity<?> getGrade(@PathVariable final Long id) {
         var grade = gradeRepository.findById(id).orElse(null);
 
-        if (grade != null) {
-            return ResponseEntity.ok(grade);
-        }
-
-        return ResponseEntity.notFound().build();
+        return (grade == null) ?
+                ResponseEntity.notFound().build() :
+                ResponseEntity.ok(grade);
     }
 
     @GetMapping("/student/{studentId}")
@@ -59,7 +56,7 @@ public class GradeController {
         return lst.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(lst);
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<?> createGrade(
             @Valid @RequestBody final Grade received,
             final Principal principal
@@ -92,7 +89,6 @@ public class GradeController {
 
         if (gradeInDb != null && user != null) {
             try {
-                gradeInDb.setModifiedBy(user.getId());
 
                 gradeInDb.setStudentId(received.getStudentId());
                 gradeInDb.setCourseId(received.getCourseId());
@@ -110,9 +106,7 @@ public class GradeController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteGrade(
-            @PathVariable final Long id
-    ) {
+    public ResponseEntity<?> deleteGrade(@PathVariable final Long id) {
         if (gradeRepository.existsById(id)) {
             gradeService.delete(id);
         }

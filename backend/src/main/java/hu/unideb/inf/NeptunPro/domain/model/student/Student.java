@@ -3,6 +3,8 @@ package hu.unideb.inf.NeptunPro.domain.model.student;
 import hu.unideb.inf.NeptunPro.domain.model.Program;
 import hu.unideb.inf.NeptunPro.domain.model.user.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Null;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,15 +20,19 @@ import java.sql.Timestamp;
 public class Student {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Please provide the first name")
     private String firstname;
 
+    @NotBlank(message = "Please provide the last name")
     private String lastname;
 
+    @NotBlank(message = "Please provide a program")
     private Long programId;
 
+    @Null
     private Double gpa;
 
     private Short version;

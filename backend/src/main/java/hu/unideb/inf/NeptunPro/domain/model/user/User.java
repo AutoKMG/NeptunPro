@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,16 +25,17 @@ import java.util.List;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "First Name is mandatory")
+    @NotBlank(message = "First Name is mandatory")
     private String firstname;
 
-    @NotNull(message = "Last Name is mandatory")
+    @NotBlank(message = "Last Name is mandatory")
     private String lastname;
 
     @Email
+    @NotBlank(message = "Email is mandatory")
     private String email;
 
     @JsonIgnore
