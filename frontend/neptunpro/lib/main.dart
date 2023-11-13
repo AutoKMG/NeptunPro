@@ -18,8 +18,22 @@ class NeptunProApplication extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'NeptunPro',
+      theme: ThemeData(
+        primaryColor: Colors.blue, // Set your primary color here
+        textTheme: const TextTheme(
+          titleLarge: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.w600,
+            color: Colors.white
+          ),
+          bodyLarge: TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+          ),
+        ),
+      ),
       home: SigninScreen(),
     );
   }

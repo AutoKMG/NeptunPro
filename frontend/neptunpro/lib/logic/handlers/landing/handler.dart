@@ -2,8 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:neptunpro/presentation/screens/landing_page/widgets/sections/courses.dart';
 import 'package:neptunpro/presentation/screens/landing_page/widgets/sections/dashboard.dart';
-import 'package:neptunpro/presentation/screens/landing_page/widgets/sections/students.dart';
 import 'package:neptunpro/presentation/screens/landing_page/widgets/sections/teachers.dart';
+import 'package:neptunpro/presentation/screens/students/students.dart';
 
 part 'state.dart';
 
@@ -20,7 +20,7 @@ class LandingPageHandler extends Cubit<LandingPageState> {
         selectedPageWidget = dashboard();
         break;
       case "Students":
-        selectedPageWidget = students();
+        selectedPageWidget = const StudentsScreen();
         break;
       case "Teachers":
         selectedPageWidget = teachers();
