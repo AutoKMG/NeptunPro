@@ -6,7 +6,7 @@ import 'package:neptunpro/presentation/reusable_widgets/person_card.dart';
 import 'package:neptunpro/presentation/screens/students/widgets/students_details_popup.dart';
 
 class StudentCard extends StatelessWidget {
-  StudentInfo studentInfo;
+  Student studentInfo;
   BuildContext context;
   StudentCard({
     Key? key,

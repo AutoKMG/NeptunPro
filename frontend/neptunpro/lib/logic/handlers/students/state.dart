@@ -8,7 +8,7 @@ final class StudentsStateInitial extends StudentsState {}
 final class StudentsStateLoading extends StudentsState {}
 
 final class StudentsStateSuccess extends StudentsState {
-  final List<StudentInfo> students;
+  final List<Student> students;
 
   StudentsStateSuccess({required this.students});
   

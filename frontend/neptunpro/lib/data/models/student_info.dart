@@ -1,6 +1,6 @@
 import 'package:neptunpro/data/models/modificator_info.dart';
 
-class StudentInfo {
+class Student {
   int id;
   String firstname;
   String lastname;
@@ -15,7 +15,7 @@ class StudentInfo {
   ModificatorInfo createdByInfo;
   ModificatorInfo modifiedByInfo;
 
-  StudentInfo({
+  Student({
     required this.id,
     required this.firstname,
     required this.lastname,
@@ -31,8 +31,8 @@ class StudentInfo {
     required this.modifiedByInfo,
   });
 
-  factory StudentInfo.fromJson(Map<String, dynamic> map) {
-    return StudentInfo(
+  factory Student.fromJson(Map<String, dynamic> map) {
+    return Student(
       id: map['id'] as int,
       firstname: map['firstname'] as String,
       lastname: map['lastname'] as String,

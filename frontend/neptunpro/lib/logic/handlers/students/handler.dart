@@ -12,9 +12,9 @@ class StudentsHandler extends Cubit<StudentsState> {
 
   Future<void> retrieveStudents() async {
     DioHelper.get(url: 'student', query: {}).then((value) {
-      List<StudentInfo> students = [];
+      List<Student> students = [];
       value.data.forEach((student) {
-        students.add(StudentInfo.fromJson(student));
+        students.add(Student.fromJson(student));
       });
       emit(StudentsStateSuccess(students: students));
     }).catchError((error) {

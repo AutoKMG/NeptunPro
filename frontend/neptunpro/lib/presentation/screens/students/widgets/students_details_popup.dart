@@ -3,7 +3,7 @@ import 'package:neptunpro/data/constants/colors.dart';
 import 'package:neptunpro/data/models/student_info.dart';
 
 class StudentDetailsPopup extends StatelessWidget {
-  final StudentInfo studentInfo;
+  final Student studentInfo;
 
   const StudentDetailsPopup({super.key, required this.studentInfo});
 
@@ -94,7 +94,7 @@ class CustomSizedBox extends StatelessWidget {
   }
 }
 
-void showStudentDetailsPopup(BuildContext context, StudentInfo studentInfo) {
+void showStudentDetailsPopup(BuildContext context, Student studentInfo) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
