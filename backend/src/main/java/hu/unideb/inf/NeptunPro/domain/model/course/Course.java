@@ -26,7 +26,7 @@ public class Course {
     @Enumerated(EnumType.STRING)
     private CourseType type;
 
-    @NotBlank(message = "Please provide a teacher")
+    @NotNull(message = "Please provide a teacher")
     private Long teacherId;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
