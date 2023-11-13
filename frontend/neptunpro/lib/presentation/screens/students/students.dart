@@ -12,7 +12,7 @@ class StudentsScreen extends StatelessWidget {
       create: (context) => StudentsHandler(),
       child: BlocBuilder<StudentsHandler, StudentsState>(
         builder: (context, state) {
-          if (state is StudentsStateInitial) {
+          if (state is StudentsStateInitial || state is StudentsStateLoading) {
             return const CircularProgressIndicator();
           } else if (state is StudentsStateSuccess) {
             return GridView.builder(

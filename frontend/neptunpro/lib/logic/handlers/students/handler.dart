@@ -11,6 +11,7 @@ class StudentsHandler extends Cubit<StudentsState> {
   }
 
   Future<void> retrieveStudents() async {
+    emit(StudentsStateLoading());
     DioHelper.get(url: 'student', query: {}).then((value) {
       List<Student> students = [];
       value.data.forEach((student) {
