@@ -36,9 +36,24 @@ public class CourseController {
         return ResponseEntity.ok(lst);
     }
 
+    @GetMapping("/search/{name}")
+    public ResponseEntity<?> searchByName(@PathVariable("name") final String name) {
+        var arrayNode = mapper.createArrayNode();
+
+        var courses = courseRepository.findTop10ByNameContains(name);
+        for (var course : courses) {
+            var node = arrayNode.addObject();
+            node.put("id", course.getId());
+            node.put("name", course.getName());
+            node.put("type", course.getType().name());
+        }
+
+        return ResponseEntity.ok(arrayNode);
+    }
+
     @PostMapping("")
     public ResponseEntity<?> createCourse(@Valid @RequestBody final Course received) {
-        // TODO: add auth admin check
+
         var json = mapper.createObjectNode();
 
         if(isCourseExists(received)) {
@@ -69,7 +84,7 @@ public class CourseController {
             @Valid @RequestBody final Course received,
             @PathVariable final Long id
     ) {
-        // TODO: add auth admin check
+
         var json = mapper.createObjectNode();
 
         var courseFromDb = courseRepository.findById(id).orElse(null);
@@ -92,7 +107,7 @@ public class CourseController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteCourse(@PathVariable final Long id) {
-        // TODO: add auth admin check
+
         var json = mapper.createObjectNode();
         try {
             courseRepository.deleteById(id);

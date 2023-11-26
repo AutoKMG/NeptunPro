@@ -34,6 +34,22 @@ public class StudentController {
         return ResponseEntity.ok(lst);
     }
 
+    @GetMapping("/search/{name}")
+    public ResponseEntity<?> searchByFullName(@PathVariable("name") final String name) {
+        var arrayNode = mapper.createArrayNode();
+
+        var students = studentRepository.findTop10ByFullNameContains('%' + name + '%');
+        for (var student : students) {
+            var node = arrayNode.addObject();
+            node.put("id", student.getId());
+            node.put("fullName",
+                    String.format("%s %s", student.getFirstname(), student.getLastname()));
+            node.put("programId", student.getProgramId());
+        }
+
+        return ResponseEntity.ok(arrayNode);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getStudent(@PathVariable final Long id) {
         var student = studentRepository.findById(id).orElse(null);

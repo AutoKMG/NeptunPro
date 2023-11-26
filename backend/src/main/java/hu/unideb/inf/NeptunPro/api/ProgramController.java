@@ -25,8 +25,22 @@ public class ProgramController {
         return ResponseEntity.ok(lst);
     }
 
+    @GetMapping("/search/{name}")
+    public ResponseEntity<?> searchByName(@PathVariable("name") final String name) {
+        var arrayNode = mapper.createArrayNode();
+
+        var programs = programRepository.findTop10ByNameContains(name);
+        for (var program : programs) {
+            var node = arrayNode.addObject();
+            node.put("id", program.getId());
+            node.put("name", program.getName());
+        }
+
+        return ResponseEntity.ok(arrayNode);
+    }
+
     @PostMapping("")
-    public ResponseEntity<?> createCourse(@Valid @RequestBody final Program received) {
+    public ResponseEntity<?> createProgram(@Valid @RequestBody final Program received) {
 
         // TODO: add auth admin check
         var json = mapper.createObjectNode();
