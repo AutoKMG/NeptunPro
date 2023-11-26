@@ -1,7 +1,6 @@
 package hu.unideb.inf.NeptunPro.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import hu.unideb.inf.NeptunPro.domain.model.course.Course;
 import hu.unideb.inf.NeptunPro.domain.repo.CourseRepository;
@@ -13,9 +12,14 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
+
+import static hu.unideb.inf.NeptunPro.util.Utils.logApi;
 
 
 @RequiredArgsConstructor
@@ -31,13 +35,17 @@ public class CourseController {
     private final CourseService courseService;
 
     @GetMapping("")
-    public ResponseEntity<?> getAllCourses() {
+    public ResponseEntity<?> getAllCourses(final Principal principal) {
+        logApi(HttpMethod.GET, principal, "getAllCourses");
         var lst = courseRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
         return ResponseEntity.ok(lst);
     }
 
     @GetMapping("/search/{name}")
-    public ResponseEntity<?> searchByName(@PathVariable("name") final String name) {
+    public ResponseEntity<?> searchByName(
+            @PathVariable("name") final String name,
+            final Principal principal) {
+        logApi(HttpMethod.GET, principal, String.format("searchByName [%s]", name));
         var arrayNode = mapper.createArrayNode();
 
         var courses = courseRepository.findTop10ByNameContains(name);
@@ -52,8 +60,11 @@ public class CourseController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> createCourse(@Valid @RequestBody final Course received) {
+    public ResponseEntity<?> createCourse(
+            @Valid @RequestBody final Course received,
+            final Principal principal) {
 
+        logApi(HttpMethod.POST, principal, "createCourse");
         var json = mapper.createObjectNode();
 
         if(isCourseExists(received)) {
@@ -82,8 +93,10 @@ public class CourseController {
     @PutMapping("/{id}")
     public ResponseEntity<?> updateCourse(
             @Valid @RequestBody final Course received,
-            @PathVariable final Long id
+            @PathVariable final Long id,
+            final Principal principal
     ) {
+        logApi(HttpMethod.PUT, principal, String.format("updateCourse [%d]", id));
 
         var json = mapper.createObjectNode();
 
@@ -106,8 +119,12 @@ public class CourseController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCourse(@PathVariable final Long id) {
+    public ResponseEntity<?> deleteCourse(
+            @PathVariable final Long id,
+            final Principal principal
+    ) {
 
+        logApi(HttpMethod.DELETE, principal, String.format("deleteCourse [%d]", id));
         var json = mapper.createObjectNode();
         try {
             courseRepository.deleteById(id);

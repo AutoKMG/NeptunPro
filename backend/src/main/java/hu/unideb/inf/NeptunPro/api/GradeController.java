@@ -10,11 +10,14 @@ import hu.unideb.inf.NeptunPro.service.GradeService;
 import hu.unideb.inf.NeptunPro.util.Utils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+
+import static hu.unideb.inf.NeptunPro.util.Utils.logApi;
 
 @RequiredArgsConstructor
 @RestController
@@ -30,13 +33,18 @@ public class GradeController {
     private final GradeService gradeService;
 
     @GetMapping("")
-    public ResponseEntity<?> getAllGrades() {
+    public ResponseEntity<?> getAllGrades(final Principal principal) {
+        logApi(HttpMethod.GET, principal, "getAllGrades");
         var lst = gradeRepository.findAll();
         return ResponseEntity.ok(lst);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getGrade(@PathVariable final Long id) {
+    public ResponseEntity<?> getGrade(
+            @PathVariable final Long id,
+            final Principal principal
+    ) {
+        logApi(HttpMethod.GET, principal, String.format("getGrade [%d]", id));
         var grade = gradeRepository.findById(id).orElse(null);
 
         return (grade == null) ?
@@ -45,13 +53,21 @@ public class GradeController {
     }
 
     @GetMapping("/student/{studentId}")
-    public ResponseEntity<?> getGradeByStudent(@PathVariable final Long studentId) {
+    public ResponseEntity<?> getGradeByStudent(
+            @PathVariable final Long studentId,
+            final Principal principal
+    ) {
+        logApi(HttpMethod.GET, principal, String.format("getGradeByStudent [%d]", studentId));
         var lst = gradeRepository.findAllByStudentId(studentId);
         return lst.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(lst);
     }
 
     @GetMapping("/{id}/events")
-    public ResponseEntity<?> getGradeEvents(@PathVariable final Long id) {
+    public ResponseEntity<?> getGradeEvents(
+            @PathVariable final Long id,
+            final Principal principal
+    ) {
+        logApi(HttpMethod.GET, principal, String.format("getGradeEvents [%d]", id));
         var lst = eventSourceGradeRepository.findAllByGradeId(id);
         return lst.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(lst);
     }
@@ -61,6 +77,7 @@ public class GradeController {
             @Valid @RequestBody final Grade received,
             final Principal principal
     ) {
+        logApi(HttpMethod.POST, principal, "createGrade");
         var json = mapper.createObjectNode();
 
         try {
@@ -82,6 +99,7 @@ public class GradeController {
             @PathVariable final Long id,
             final Principal principal
     ) {
+        logApi(HttpMethod.PUT, principal, String.format("updateGrade [%d]", id));
         var json = mapper.createObjectNode();
 
         var gradeInDb = gradeRepository.findById(id).orElse(null);
@@ -106,7 +124,11 @@ public class GradeController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteGrade(@PathVariable final Long id) {
+    public ResponseEntity<?> deleteGrade(
+            @PathVariable final Long id,
+            final Principal principal
+    ) {
+        logApi(HttpMethod.DELETE, principal, String.format("deleteGrade [%d]", id));
         if (gradeRepository.existsById(id)) {
             gradeService.delete(id);
         }

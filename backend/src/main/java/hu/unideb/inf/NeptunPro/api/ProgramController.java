@@ -6,9 +6,14 @@ import hu.unideb.inf.NeptunPro.domain.repo.ProgramRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
+
+import static hu.unideb.inf.NeptunPro.util.Utils.logApi;
 
 @RequiredArgsConstructor
 @RestController
@@ -20,13 +25,18 @@ public class ProgramController {
     private final ProgramRepository programRepository;
 
     @GetMapping("")
-    public ResponseEntity<?> getAllPrograms() {
+    public ResponseEntity<?> getAllPrograms(final Principal principal) {
+        logApi(HttpMethod.GET, principal, "getAllPrograms");
         var lst = programRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
         return ResponseEntity.ok(lst);
     }
 
     @GetMapping("/search/{name}")
-    public ResponseEntity<?> searchByName(@PathVariable("name") final String name) {
+    public ResponseEntity<?> searchByName(
+            @PathVariable("name") final String name,
+            final Principal principal
+    ) {
+        logApi(HttpMethod.GET, principal, String.format("searchByName [%s]", name));
         var arrayNode = mapper.createArrayNode();
 
         var programs = programRepository.findTop10ByNameContains(name);
@@ -40,9 +50,12 @@ public class ProgramController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> createProgram(@Valid @RequestBody final Program received) {
+    public ResponseEntity<?> createProgram(
+            @Valid @RequestBody final Program received,
+            final Principal principal
+    ) {
 
-        // TODO: add auth admin check
+        logApi(HttpMethod.POST, principal, "createProgram");
         var json = mapper.createObjectNode();
 
         if(programRepository.existsByName(received.getName())) {
@@ -62,9 +75,11 @@ public class ProgramController {
     @PutMapping("/{id}")
     public ResponseEntity<?> updateProgram(
             @Valid @RequestBody final Program received,
-            @PathVariable final Long id)
+            @PathVariable final Long id,
+            final Principal principal
+    )
     {
-        // TODO: add auth admin check
+        logApi(HttpMethod.PUT, principal, String.format("updateProgram [%d]", id));
         var json = mapper.createObjectNode();
 
         var programFromDb = programRepository.findById(id).orElse(null);
@@ -84,8 +99,11 @@ public class ProgramController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteProgram(@PathVariable final Long id) {
-        // TODO: add auth admin check
+    public ResponseEntity<?> deleteProgram(
+            @PathVariable final Long id,
+            final Principal principal
+    ) {
+        logApi(HttpMethod.DELETE, principal, String.format("deleteProgram [%d]", id));
         var json = mapper.createObjectNode();
         try {
             programRepository.deleteById(id);

@@ -9,11 +9,14 @@ import hu.unideb.inf.NeptunPro.service.StudentService;
 import hu.unideb.inf.NeptunPro.util.Utils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+
+import static hu.unideb.inf.NeptunPro.util.Utils.logApi;
 
 @RequiredArgsConstructor
 @RestController
@@ -29,13 +32,18 @@ public class StudentController {
     private final StudentService studentService;
 
     @GetMapping("")
-    public ResponseEntity<?> getAllStudents() {
+    public ResponseEntity<?> getAllStudents(final Principal principal) {
+        logApi(HttpMethod.GET, principal, "getAllStudents");
         var lst = studentRepository.findAll();
         return ResponseEntity.ok(lst);
     }
 
     @GetMapping("/search/{name}")
-    public ResponseEntity<?> searchByFullName(@PathVariable("name") final String name) {
+    public ResponseEntity<?> searchByFullName(
+            @PathVariable("name") final String name,
+            final Principal principal
+    ) {
+        logApi(HttpMethod.GET, principal, String.format("searchByFullName [%s]", name));
         var arrayNode = mapper.createArrayNode();
 
         var students = studentRepository.findTop10ByFullNameContains('%' + name + '%');
@@ -51,7 +59,12 @@ public class StudentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getStudent(@PathVariable final Long id) {
+    public ResponseEntity<?> getStudent(
+            @PathVariable final Long id,
+            final Principal principal
+    ) {
+        logApi(HttpMethod.GET, principal, String.format("getStudent [%d]", id));
+
         var student = studentRepository.findById(id).orElse(null);
 
         return (student == null) ?
@@ -60,7 +73,11 @@ public class StudentController {
     }
 
     @GetMapping("/{id}/events")
-    public ResponseEntity<?> getStudentEvents(@PathVariable final Long id) {
+    public ResponseEntity<?> getStudentEvents(
+            @PathVariable final Long id,
+            final Principal principal
+    ) {
+        logApi(HttpMethod.GET, principal, String.format("getStudentEvents [%d]", id));
         var lst = eventSourceStudentRepository.findAllByStudentId(id);
         return lst.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(lst);
     }
@@ -70,6 +87,7 @@ public class StudentController {
             @Valid @RequestBody final Student received,
             final Principal principal
     ) {
+        logApi(HttpMethod.POST, principal, "createStudent");
         var json = mapper.createObjectNode();
 
         try {
@@ -90,6 +108,7 @@ public class StudentController {
             @PathVariable final Long id,
             final Principal principal
     ) {
+        logApi(HttpMethod.PUT, principal, String.format("updateStudent [%d]", id));
         var json = mapper.createObjectNode();
 
         var studentInDb = studentRepository.findById(id).orElse(null);
@@ -115,7 +134,11 @@ public class StudentController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteStudent(@PathVariable final Long id) {
+    public ResponseEntity<?> deleteStudent(
+            @PathVariable final Long id,
+            final Principal principal
+    ) {
+        logApi(HttpMethod.DELETE, principal, String.format("deleteStudent [%d]", id));
         if(studentRepository.existsById(id)) {
             studentService.delete(id);
         }
