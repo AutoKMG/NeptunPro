@@ -11,25 +11,19 @@ class CoursesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CoursesHandler(),
-      child:
-          BlocBuilder<CoursesHandler, CoursesState>(builder: (context, state) {
-        CoursesHandler handler = context.read();
-        return Column(
-          children: [
-            customeSearchBar(handler),
-            body(state)],
-        );
-      }),
-    );
+    return BlocBuilder<CoursesHandler, CoursesState>(builder: (context, state) {
+            CoursesHandler handler = context.read();
+            return Column(
+    children: [customeSearchBar(handler), body(handler, state)],
+            );
+          });
   }
 }
 
 CustomSearchBar customeSearchBar(CoursesHandler handler) {
   return CustomSearchBar(
     label: 'Course',
-    icon: Icons.person,
+    icon: Icons.all_inbox_rounded,
     onChanged: (value) {
       handler.retrieveCoursesByName(value);
     },
@@ -42,8 +36,12 @@ CustomSearchBar customeSearchBar(CoursesHandler handler) {
   );
 }
 
-Widget body(CoursesState state) {
+Widget body(CoursesHandler handler, CoursesState state) {
   if (state is CoursesStateInitial || state is CoursesStateLoading) {
+    handler.retrieveCourses();
+    return const CircularProgressIndicator();
+  }
+  if (state is CoursesStateLoading) {
     return const CircularProgressIndicator();
   } else if (state is CoursesStateSuccessful) {
     return ConditionalBuilder(

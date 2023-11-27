@@ -6,9 +6,7 @@ import 'package:neptunpro/logic/helpers/remote/dio_helper.dart';
 part 'state.dart';
 
 class TeachersHandler extends Cubit<TeachersState> {
-  TeachersHandler() : super(TeachersStateInitial()) {
-    retrieveTeachers();
-  }
+  TeachersHandler() : super(TeachersStateInitial());
 
   Future<void> retrieveTeachers() async {
     emit(TeachersStateLoading());

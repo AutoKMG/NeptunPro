@@ -11,24 +11,24 @@ class TeachersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => TeachersHandler(),
-      child: BlocBuilder<TeachersHandler, TeachersState>(
-          builder: (context, state) {
-        TeachersHandler handler = context.read();
-        return Column(
-          children: [
-            customSearchBar(handler),
-            body(state),
-          ],
-        );
-      }),
-    );
+    return BlocBuilder<TeachersHandler, TeachersState>(
+        builder: (context, state) {
+      TeachersHandler handler = context.read();
+      return Column(
+        children: [
+          customSearchBar(handler),
+          body(handler, state),
+        ],
+      );
+    });
   }
 }
 
-Widget body(TeachersState state) {
-  if (state is TeachersStateInitial || state is TeachersStateLoading) {
+Widget body(TeachersHandler handler, TeachersState state) {
+  if (state is TeachersStateInitial) {
+    handler.retrieveTeachers();
+    return const CircularProgressIndicator();
+  } else if (state is TeachersStateLoading) {
     return const CircularProgressIndicator();
   } else if (state is TeachersStateSuccess) {
     return ConditionalBuilder(
@@ -62,7 +62,7 @@ Widget body(TeachersState state) {
 CustomSearchBar customSearchBar(TeachersHandler handler) {
   return CustomSearchBar(
     label: 'Teacher',
-    icon: Icons.person,
+    icon: Icons.person_4_rounded,
     onChanged: (value) {
       handler.retrieveTeachersByName(value);
     },

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:neptunpro/logic/handlers/courses/handler.dart';
+import 'package:neptunpro/logic/handlers/students/handler.dart';
+import 'package:neptunpro/logic/handlers/teachers/handler.dart';
 import 'package:neptunpro/logic/helpers/local/cache_helper.dart';
 import 'package:neptunpro/logic/helpers/remote/dio_helper.dart';
 import 'package:neptunpro/logic/observers/bloc_observer.dart';
@@ -24,10 +27,7 @@ class NeptunProApplication extends StatelessWidget {
         primaryColor: Colors.blue, // Set your primary color here
         textTheme: const TextTheme(
           titleLarge: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.w600,
-            color: Colors.white
-          ),
+              fontSize: 22, fontWeight: FontWeight.w600, color: Colors.white),
           bodyLarge: TextStyle(
             color: Colors.white,
             fontSize: 16,
