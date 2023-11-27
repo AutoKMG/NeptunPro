@@ -49,6 +49,21 @@ public class CourseController {
         return ResponseEntity.ok(courses);
     }
 
+    @GetMapping("/students-registered/{id}")
+    public ResponseEntity<?> getCourseRegisteredStudentsById(
+            @PathVariable final Long id,
+            final Principal principal) {
+        logApi(HttpMethod.GET, principal, String.format("getCourseRegisteredStudentsById [%d]", id));
+
+        var json = mapper.createObjectNode();
+
+        var studentsRegistered = courseRepository.findCoursesRegisteredStudentsById(id);
+
+        json.put("studentsRegistered", String.format("%d", studentsRegistered.orElse(null)));
+
+        return ResponseEntity.ok(studentsRegistered);
+    }
+
     @PostMapping("")
     public ResponseEntity<?> createCourse(
             @Valid @RequestBody final Course received,
