@@ -7,7 +7,7 @@ class DioHelper {
   static init() {
     dio = Dio(
       BaseOptions(
-        baseUrl: 'http://localhost:8080/api/',
+        baseUrl: 'https://spacial-shoe-production.up.railway.app/api/',
         receiveDataWhenStatusError: true,
       ),
     );
@@ -36,5 +36,17 @@ class DioHelper {
       'Authorization': 'Bearer ${CacheHelper.getData(key: 'token')}',
     };
     return await dio!.get(url, queryParameters: query);
+  }
+
+  static Future<Response> post(
+      {required String url, Map<String, dynamic>? payload}) async {
+    dio!.options.headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${CacheHelper.getData(key: 'token')}',
+    };
+    return await dio!.post(
+      url,
+      data: payload,
+    );
   }
 }
