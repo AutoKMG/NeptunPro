@@ -5,7 +5,7 @@ class Student {
   String firstname;
   String lastname;
   int programId;
-  double gpa;
+  double? gpa;
   int version;
   int createdBy;
   int modifiedBy;
@@ -37,7 +37,7 @@ class Student {
       firstname: map['firstname'] as String,
       lastname: map['lastname'] as String,
       programId: map['programId'] as int,
-      gpa: map['gpa'] as double,
+      gpa: (map['gpa'] == null) ? null : map['gpa'] as double,
       version: map['version'] as int,
       createdBy: map['createdBy'] as int,
       modifiedBy: map['modifiedBy'] as int,

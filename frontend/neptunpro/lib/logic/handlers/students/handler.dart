@@ -20,11 +20,11 @@ class StudentsHandler extends Cubit<StudentsState> {
       emit(StudentsStateSuccess(students: students));
     }).catchError((error) {
       emit(StudentsStateFailure(error: error.toString()));
-    }); 
+    });
   }
 
   Future<void> retrieveStudentsByName(String name) async {
-    if (state is StudentsStateSuccess){
+    if (state is StudentsStateSuccess) {
       if (name.isEmpty) {
         if ((state as StudentsStateSuccess).students.isNotEmpty) {
           return;
@@ -41,6 +41,16 @@ class StudentsHandler extends Cubit<StudentsState> {
       emit(StudentsStateSuccess(students: students));
     }).catchError((error) {
       emit(StudentsStateFailure(error: error.toString()));
-    }); 
+    });
+  }
+
+  Future<void> addNewStudent(Map<String, dynamic> payload) async {
+    DioHelper.post(url: 'student', payload: payload).then((_) {
+      emit(StudentsStateAddSuccess());
+      retrieveStudents();
+    }).catchError((error) {
+      print(error.toString());
+      emit(StudentsStateAddFailure());
+    });
   }
 }

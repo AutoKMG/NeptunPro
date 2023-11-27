@@ -20,3 +20,7 @@ final class StudentsStateFailure extends StudentsState {
   StudentsStateFailure({required this.error});
   
 }
+
+final class StudentsStateAddSuccess extends StudentsState {}
+
+final class StudentsStateAddFailure extends StudentsState {}
