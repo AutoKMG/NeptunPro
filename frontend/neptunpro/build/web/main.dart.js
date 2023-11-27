@@ -24178,7 +24178,7 @@ var $async$alB=A.S(function(a,b){if(a===1)return A.O(b,r)
 while(true)switch(s){case 0:if($.al==null)A.atz()
 $.al.toString
 $.vp=new A.a4j()
-q=A.ayS("http://localhost:8080/api/",!0)
+q=A.ayS("https://spacial-shoe-production.up.railway.app/api/",!0)
 p=new A.Yx($,new A.HN(A.b([B.zK],t.i6)),$,new A.Wi(A.aHF()),!1)
 p.ax$=q
 p.ch$=new A.WG(A.aL(t.Gf))
