@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:neptunpro/data/constants/colors.dart';
 import 'package:neptunpro/logic/handlers/courses/handler.dart';
+import 'package:neptunpro/logic/handlers/dashboard/handler.dart';
 import 'package:neptunpro/logic/handlers/landing/handler.dart';
 import 'package:neptunpro/logic/handlers/students/handler.dart';
 import 'package:neptunpro/logic/handlers/teachers/handler.dart';
@@ -26,6 +27,9 @@ class LandingPageScreen extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => CoursesHandler(),
+        ),
+        BlocProvider(
+          create: (context) => DashboardHandler(),
         ),
       ],
       child: Scaffold(
