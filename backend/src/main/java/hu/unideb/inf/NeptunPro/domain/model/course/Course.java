@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Course {
@@ -22,7 +23,7 @@ public class Course {
     @NotBlank(message = "Please provide a name")
     private String name;
 
-    @NotBlank(message = "Please provide a type")
+    @NotNull(message = "Please provide a type")
     @Enumerated(EnumType.STRING)
     private CourseType type;
 
