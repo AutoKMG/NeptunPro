@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.unideb.inf.NeptunPro.domain.model.course.Course;
 import hu.unideb.inf.NeptunPro.domain.repo.CourseRepository;
 import hu.unideb.inf.NeptunPro.domain.repo.UserRepository;
-import hu.unideb.inf.NeptunPro.service.CourseService;
 
 import jakarta.validation.Valid;
 
@@ -31,8 +30,6 @@ public class CourseController {
 
     private final CourseRepository courseRepository;
     private final UserRepository userRepository;
-
-    private final CourseService courseService;
 
     @GetMapping("")
     public ResponseEntity<?> getAllCourses(final Principal principal) {
@@ -81,7 +78,7 @@ public class CourseController {
         }
 
         try {
-            var saved = courseService.save(received);
+            var saved = courseRepository.save(received);
             return new ResponseEntity<>(saved, HttpStatus.CREATED);
         } catch (Exception e) {
             json.put("error", e.getMessage());
@@ -108,7 +105,7 @@ public class CourseController {
                 courseFromDb.setType(received.getType());
                 courseFromDb.setTeacherId(received.getTeacherId());
 
-                var updated = courseService.save(courseFromDb);
+                var updated = courseRepository.saveAndFlush(courseFromDb);
                 return ResponseEntity.ok(updated);
             } catch (Exception e) {
                 json.put("error", e.getMessage());
