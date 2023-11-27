@@ -38,16 +38,9 @@ public class UserController {
             final Principal principal
     ) {
         logApi(HttpMethod.GET, principal, String.format("searchByFullName [%s]", name));
-        var arrayNode = mapper.createArrayNode();
 
         var users = userRepository.findTop10ByFullNameContains('%' + name + '%');
-        for (var user : users) {
-            var node = arrayNode.addObject();
-            node.put("id", user.getId());
-            node.put("fullName",
-                    String.format("%s %s", user.getFirstname(), user.getLastname()));
-        }
 
-        return ResponseEntity.ok(arrayNode);
+        return ResponseEntity.ok(users);
     }
 }

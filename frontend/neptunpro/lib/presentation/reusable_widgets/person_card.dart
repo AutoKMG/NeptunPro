@@ -4,11 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:neptunpro/data/constants/colors.dart';
 
 class PersonCard extends StatelessWidget {
-  String imageUrl;
   Column cardContent;
   PersonCard({
     Key? key,
-    required this.imageUrl,
     required this.cardContent,
   }) : super(key: key);
 

@@ -5,6 +5,7 @@ import 'package:neptunpro/presentation/screens/landing_page/widgets/sections/cou
 import 'package:neptunpro/presentation/screens/landing_page/widgets/sections/dashboard.dart';
 import 'package:neptunpro/presentation/screens/landing_page/widgets/sections/teachers.dart';
 import 'package:neptunpro/presentation/screens/students/students.dart';
+import 'package:neptunpro/presentation/screens/teachers/teachers.dart';
 
 part 'state.dart';
 
@@ -24,7 +25,7 @@ class LandingPageHandler extends Cubit<LandingPageState> {
         selectedPageWidget = const StudentsScreen();
         break;
       case "Teachers":
-        selectedPageWidget = teachers();
+        selectedPageWidget = const TeachersScreen();
         break;
       case "Courses":
         selectedPageWidget = const CoursesScreen();

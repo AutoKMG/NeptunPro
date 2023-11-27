@@ -46,17 +46,10 @@ public class CourseController {
             @PathVariable("name") final String name,
             final Principal principal) {
         logApi(HttpMethod.GET, principal, String.format("searchByName [%s]", name));
-        var arrayNode = mapper.createArrayNode();
 
         var courses = courseRepository.findTop10ByNameContains(name);
-        for (var course : courses) {
-            var node = arrayNode.addObject();
-            node.put("id", course.getId());
-            node.put("name", course.getName());
-            node.put("type", course.getType().name());
-        }
 
-        return ResponseEntity.ok(arrayNode);
+        return ResponseEntity.ok(courses);
     }
 
     @PostMapping("")
