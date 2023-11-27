@@ -1,5 +1,6 @@
 package hu.unideb.inf.NeptunPro.api;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.unideb.inf.NeptunPro.domain.repo.CourseRepository;
 import hu.unideb.inf.NeptunPro.domain.repo.StudentRepository;
 import hu.unideb.inf.NeptunPro.domain.repo.UserRepository;
@@ -19,27 +20,22 @@ import static hu.unideb.inf.NeptunPro.util.Utils.logApi;
 @RequestMapping("/api/dashboard")
 public class DashboardController {
 
+    private final ObjectMapper mapper;
+
     private final StudentRepository studentRepository;
     private final CourseRepository courseRepository;
     private final UserRepository userRepository;
 
-    @GetMapping("/student")
-    public ResponseEntity<?> getStudentCount(final Principal principal) {
-        logApi(HttpMethod.GET, principal, "getStudentCount");
-        return ResponseEntity.ok(studentRepository.count());
+    @GetMapping("")
+    public ResponseEntity<?> getDashboardInfo(final Principal principal) {
+        logApi(HttpMethod.GET, principal, "getDashboardInfo");
+        var json = mapper.createObjectNode();
+        var studentCount = studentRepository.count();
+        var courseCount = courseRepository.count();
+        var userCount = userRepository.count();
+        json.put("studentCount", studentCount);
+        json.put("courseCount", courseCount);
+        json.put("userCount", userCount);
+        return ResponseEntity.ok(json);
     }
-
-    @GetMapping("/course")
-    public ResponseEntity<?> getCourseCount(final Principal principal) {
-        logApi(HttpMethod.GET, principal, "getCourseCount");
-        return ResponseEntity.ok(courseRepository.count());
-    }
-
-    @GetMapping("/user")
-    public ResponseEntity<?> getUserCount(final Principal principal) {
-        logApi(HttpMethod.GET, principal, "getUserCount");
-        return ResponseEntity.ok(userRepository.count());
-    }
-
-
 }
