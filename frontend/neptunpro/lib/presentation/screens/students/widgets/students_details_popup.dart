@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:neptunpro/data/constants/colors.dart';
-import 'package:neptunpro/data/models/student_info.dart';
+import 'package:neptunpro/data/models/student.dart';
 
 class StudentDetailsPopup extends StatelessWidget {
   final Student studentInfo;

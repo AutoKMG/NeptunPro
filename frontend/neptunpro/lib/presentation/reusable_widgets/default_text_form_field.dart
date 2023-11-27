@@ -26,6 +26,9 @@ Widget defaultTextFormField({
       showCursor: showCursor,
       readOnly: readOnly,
       validator: validate,
+      style: const TextStyle(
+        color: Colors.black,
+      ),
       decoration: InputDecoration(
         filled: true,
         fillColor: const Color.fromRGBO(217, 217, 217, 1),

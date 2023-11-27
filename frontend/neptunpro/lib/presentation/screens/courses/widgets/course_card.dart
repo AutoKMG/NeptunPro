@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:neptunpro/data/models/course_info.dart';
+import 'package:neptunpro/data/models/course.dart';
 
 class CourseCard extends StatelessWidget {
   const CourseCard({

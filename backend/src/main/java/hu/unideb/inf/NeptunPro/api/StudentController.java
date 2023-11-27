@@ -44,18 +44,10 @@ public class StudentController {
             final Principal principal
     ) {
         logApi(HttpMethod.GET, principal, String.format("searchByFullName [%s]", name));
-        var arrayNode = mapper.createArrayNode();
 
         var students = studentRepository.findTop10ByFullNameContains('%' + name + '%');
-        for (var student : students) {
-            var node = arrayNode.addObject();
-            node.put("id", student.getId());
-            node.put("fullName",
-                    String.format("%s %s", student.getFirstname(), student.getLastname()));
-            node.put("programId", student.getProgramId());
-        }
 
-        return ResponseEntity.ok(arrayNode);
+        return ResponseEntity.ok(students);
     }
 
     @GetMapping("/{id}")
